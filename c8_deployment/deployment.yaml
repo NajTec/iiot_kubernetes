@@ -1,0 +1,25 @@
+apiVersion: k8ssandra.io/v1alpha1
+kind: K8ssandraCluster
+metadata:
+  name: demo
+spec:
+  cassandra:
+    serverVersion: "4.0.3"
+    datacenters:
+      - metadata:
+          name: dc1
+        size: 1
+        storageConfig:
+          cassandraDataVolumeClaimSpec:
+            storageClassName: gp2
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 1Gi
+        config:
+          jvmOptions:
+            heapSize: 512M
+        stargate:
+          size: 1
+          heapSize: 256M
